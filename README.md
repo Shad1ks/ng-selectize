@@ -19,7 +19,7 @@ AngularJS wrapper for Selectize.
 <script type="text/javascript" src=".../standalone/selectize.js"></script>
 
 <script type="text/javascript" src=".../angular.js"></script>
-<script type="text/javascript" src=".../dist/ng-selectize.js"></script>
+<script type="text/javascript" src=".../src/ng-selectize.js"></script>
 ```
 
 ```javascript
