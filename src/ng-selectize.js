@@ -15,9 +15,12 @@ angular
 				onChange: "&?",
 
 				isMultiple: "<",
-				isRemovable: "<",
+
 				isTag: "<",
+				isTagValid: "=?",
+
 				isNoDefault: "<",
+				isTagNoDefault: "<",
 
 				tagText: "@"
 			},
@@ -39,12 +42,18 @@ angular
 					additionalConfig.maxItems = null;
 				}
 
-				if ((scope.isMultiple || config.maxItems > 1) && scope.isRemovable) {
+				if (scope.isMultiple || config.maxItems > 1) {
 					additionalConfig.plugins.push("remove_button");
 				}
 
 				if (scope.isTag) {
 					additionalConfig.create = function (input) {
+						if (scope.isTagValid) {
+							if (!scope.isTagValid(input)) {
+								return false;
+							}
+						}
+
 						var newOption = {};
 
 						newOption[config.valueField] = newOption[config.labelField] = input;
@@ -64,7 +73,7 @@ angular
 				scope.options = scope.options || [];
 
 				function isEmpty(val) {
-					if (!val) {
+					if (val == null) {
 						return true;
 					}
 
@@ -152,6 +161,26 @@ angular
 						});
 					}
 				}
+				
+				function setTaggedDefaultValue() {
+					if (scope.isTag && !scope.isTagNoDefault) {
+						if (config.maxItems == 1) {
+							if (scope.ngModel) {
+								var option = scope.options.find(function(opt) {
+									return opt[config.valueField] == scope.ngModel;
+								});
+
+								if (!option) {
+									var newOption = {};
+
+									newOption[config.valueField] = newOption[config.labelField] = scope.ngModel;
+
+									scope.options.push(newOption);
+								}
+							}
+						}
+					}
+				}
 
 				function onChange() {
 					var value = angular.copy(selectize.items);
@@ -187,6 +216,7 @@ angular
 					}
 
 					setDefaultValue();
+					setTaggedDefaultValue();
 
 					scope.$watch("ngModel", setPluginValue, true);
 

@@ -74,6 +74,30 @@
                     </p>
                 </div>
             </form>
+            <h3>Tag:</h3>
+            <form>
+                <div class="form-group">
+                    <label>Value:</label>
+                    <p>
+                        {{ctx.tagValue | json}}
+                    </p>
+                    <label>Action:</label>
+                    <p>
+                        <label>
+                            <input type="checkbox" ng-model="ctx.isValidateEmail"> On/Off email validation for a new tag
+                        </label>
+                    </p>
+                    <p>
+                        <ng-selectize config="ctx.config" options="ctx.options" ng-model="ctx.tagValue" is-tag="true" is-tag-valid="ctx.validateEmail" tag-text="Push"></ng-selectize>
+                    </p>
+                    <label>Code:</label>
+                    <p>
+                        <code>
+                            &lt;ng-selectize config="ctx.config" options="ctx.options" ng-model="ctx.tagValue" is-tag="true" is-tag-valid="ctx.validateEmail" tag-text="Push"&gt;&lt;/ng-selectize&gt;
+                        </code>
+                    </p>
+                </div>
+            </form>
         </div>
     </div>
 
