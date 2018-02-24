@@ -22,6 +22,8 @@ angular
 				isNoDefault: "<",
 				isTagNoDefault: "<",
 
+				useAutoWidth: "<",
+
 				tagText: "@"
 			},
 			link: function (scope, element, attrs, modelCtrl) {
@@ -182,7 +184,40 @@ angular
 					}
 				}
 
+				var useAutoWidth = function () {
+					var noAutoWidthClass = "selectize-no-auto";
+
+					if (scope.useAutoWidth) {
+						var control = angular.element(selectize.$control);
+						var controlWidht = control[0].clientWidth;
+
+						var dropdown = angular.element(selectize.$dropdown);
+
+						var options = dropdown.find(".option");
+
+						if (options.length) {
+							var option = angular.element(options[0]);
+							var optionWidth = option[0].clientWidth;
+
+							if (controlWidht >= optionWidth) {
+								dropdown.addClass(noAutoWidthClass);
+							} else {
+								dropdown.removeClass(noAutoWidthClass);
+							}
+						}
+					} else {
+						var dropdown = angular.element(selectize.$dropdown);
+
+						dropdown.addClass(noAutoWidthClass);
+					}
+				}
+
+				function onDropdownOpen() {
+					useAutoWidth();
+				};
+				
 				function onChange() {
+					var oldValue = angular.copy(scope.ngModel);
 					var value = angular.copy(selectize.items);
 
 					if (config.maxItems == 1) {
@@ -192,7 +227,7 @@ angular
 					setValue(value);
 
 					if (scope.onChange) {
-						scope.onChange({ val: value });
+						scope.onChange({ val: value, oldVal: oldValue });
 					}
 				};
 
@@ -227,6 +262,7 @@ angular
 				};
 
 				function initialize() {
+					config.onDropdownOpen = onDropdownOpen;
 					config.onChange = onChange;
 					config.onOptionAdd = onOptionAdd;
 					config.onInitialize = onInitialize;

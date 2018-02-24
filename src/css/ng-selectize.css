@@ -1,0 +1,15 @@
+﻿.selectize-dropdown {
+    width: auto !important;
+}
+
+    .selectize-dropdown .selectize-dropdown-content .option {
+        white-space: nowrap;
+    }
+
+    .selectize-dropdown.selectize-no-auto {
+        width: 100% !important;
+    }
+
+        .selectize-dropdown.selectize-no-auto .selectize-dropdown-content .option {
+            white-space: normal;
+        }
