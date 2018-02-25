@@ -22,6 +22,9 @@ angular
 				isNoDefault: "<",
 				isTagNoDefault: "<",
 
+				isInt: "<",
+				isBool: "<",
+
 				useAutoWidth: "<",
 
 				tagText: "@"
@@ -102,22 +105,32 @@ angular
 				};
 
 				function setPluginValue() {
-					var value = angular.copy(selectize.items);
+					var value = angular.copy(scope.ngModel);
 
-					if (config.maxItems == 1) {
-						value = value[0];
+					if (!angular.isArray(value)) {
+						value = ((scope.ngModel != null && scope.ngModel != undefined) ? [scope.ngModel.toString()] : []);
 					}
 
-					if (!angular.equals(value, scope.ngModel)) {
-						selectize.setValue(scope.ngModel, true);
+					if (!angular.equals(selectize.items, value)) {
+						selectize.setValue(value);
 					}
 				}
 
 				function setValue(value) {
+					if (value) {
+						if (scope.isInt) {
+							value = parseInt(value) || 0;
+						}
+
+						if (scope.isBool) {
+							value = (value == "true");
+						}
+					}
+
 					modelCtrl.$setViewValue(value);
 
 					if (scope.config.onChange) {
-						scope.config.onChange.apply(this, arguments);
+						scope.config.onChange(value);
 					}
 				}
 
@@ -128,7 +141,7 @@ angular
 								var option = scope.options[0];
 
 								if (option) {
-									setValue(option[config.valueField].toString());
+									setValue(option[config.valueField]);
 								}
 							}
 						}
@@ -140,13 +153,13 @@ angular
 						if (curr.indexOf(opt) === -1) {
 							var value = opt[config.valueField];
 
-							selectize.removeOption(value, true);
+							selectize.removeOption(value);
 						}
 					});
 
-					selectize.addOption(curr, true);
+					selectize.addOption(curr);
 
-					setPluginValue();
+					selectize.refreshOptions(false);
 				}
 
 				function setDefaultOptions() {
@@ -236,7 +249,7 @@ angular
 						scope.options.push(data);
 
 						if (scope.config.onOptionAdd) {
-							scope.config.onOptionAdd.apply(this, arguments);
+							scope.config.onOptionAdd(value, data);
 						}
 					}
 				};
@@ -245,10 +258,6 @@ angular
 					selectize = element[0].selectize;
 
 					setOptions(scope.options);
-
-					if (scope.config.onInitialize) {
-						scope.config.onInitialize(selectize);
-					}
 
 					setDefaultValue();
 					setTaggedDefaultValue();
@@ -259,6 +268,10 @@ angular
 					scope.$watch("ngRequired", isRequired, true);
 
 					scope.$watchCollection("options", setOptions);
+
+					if (scope.config.onInitialize) {
+						scope.config.onInitialize();
+					}
 				};
 
 				function initialize() {
