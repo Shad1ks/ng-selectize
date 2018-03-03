@@ -38,8 +38,11 @@ angular
 
 				var additionalConfig = {
 					maxItems: 1,
+					highlight: false,
+					copyClassesToDropdown: true,
 
 					render: {},
+
 					plugins: []
 				}
 
@@ -71,6 +74,8 @@ angular
 							return '<div class="create">' + scope.tagText + " <strong>" + escape(data.input) + "</strong>&hellip;</div>";
 						}
 					}
+
+					additionalConfig.plugins.push("restore_on_backspace");
 				}
 
 				config = angular.extend({}, config, additionalConfig);
@@ -176,12 +181,12 @@ angular
 						});
 					}
 				}
-				
+
 				function setTaggedDefaultValue() {
 					if (scope.isTag && !scope.isTagNoDefault) {
 						if (config.maxItems == 1) {
 							if (scope.ngModel) {
-								var option = scope.options.find(function(opt) {
+								var option = scope.options.find(function (opt) {
 									return opt[config.valueField] == scope.ngModel;
 								});
 
@@ -227,8 +232,12 @@ angular
 
 				function onDropdownOpen() {
 					useAutoWidth();
+
+					if (scope.config.onDropdownOpen) {
+						scope.config.onDropdownOpen();
+					}
 				};
-				
+
 				function onChange() {
 					var oldValue = angular.copy(scope.ngModel);
 					var value = angular.copy(selectize.items);
