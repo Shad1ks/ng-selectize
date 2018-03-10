@@ -4,6 +4,10 @@
 
 AngularJS wrapper for Selectize.
 
+### Demo
+
+- [Plunker](http://plnkr.co/edit/oTOKIW?p=preview)
+
 ### Plans
 
 - [ ] Simplify usage of optgroups functionality.
