@@ -18,6 +18,24 @@ AngularJS wrapper for Selectize.
 - [AngularJS](http://angularjs.org/)
 - [Selectize](http://selectize.github.io/selectize.js/)
 
+### Install
+
+- **Manually**
+
+Download latest release [here](http://github.com/Shad1ks/ng-selectize/releases/).
+
+- **NPM**
+
+```
+npm install ss-ng-selectize
+```
+
+- **Bower**
+
+```
+bower install ss-ng-selectize
+```
+
 ### Setup
 
 ```html
