@@ -1,5 +1,5 @@
 {
-  "name": "ng-selectize",
+  "name": "ss-ng-selectize",
   "description": "AngularJS wrapper for Selectize.",
   "main" : [
     "./src/css/ng-selectize.css",
