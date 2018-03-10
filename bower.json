@@ -1,0 +1,21 @@
+{
+  "name": "ng-selectize",
+  "description": "AngularJS wrapper for Selectize.",
+  "main" : [
+    "./src/css/ng-selectize.css",
+    "./src/js/ng-selectize.js"
+  ],
+  "dependencies": {
+    "selectize": ">=0.12.0",
+    "angularjs": ">=1.5.0"
+  },
+  "keywords": [
+    "angularjs",
+    "selectize",
+    "wrapper"
+  ],
+  "authors": [
+    "Igor Karpov <shad1ksen@gmail.com> (http://github.com/Shad1ks)"
+  ],
+  "license": "MIT"
+}
