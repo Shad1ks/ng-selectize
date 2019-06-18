@@ -8,10 +8,6 @@ AngularJS wrapper for Selectize.
 
 - [Plunker](http://plnkr.co/edit/oTOKIW?p=preview)
 
-### Plans
-
-- [ ] Simplify usage of optgroups functionality.
-
 ### Requirements
 
 - [JQuery](http://jquery.com/)
@@ -139,7 +135,3 @@ ctx.value = null;
 ```html
 <ng-selectize ng-model="ctx.value" use-auto-width="true"></ng-selectize>
 ```
-
-### License
-
-Copyright © 2018 Igor Karpov
