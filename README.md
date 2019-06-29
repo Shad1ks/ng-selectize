@@ -36,8 +36,8 @@ bower install ss-ng-selectize
 
 ```html
 <link rel="stylesheet" href=".../selectize.default.css">
-<!--Need just for options auto width functionality.-->
-<link rel="stylesheet" href="../src/css/ng-selectize.css">
+<!--Need just for option of auto width functionality.-->
+<link rel="stylesheet" href=".../src/css/ng-selectize.css">
 
 <script type="text/javascript" src=".../jquery.js"></script>
 <script type="text/javascript" src=".../standalone/selectize.js"></script>
